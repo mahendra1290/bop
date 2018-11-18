@@ -1,0 +1,29 @@
+onchange	An HTML element has been changed
+onclick	The user clicks an HTML element
+onmouseover	The user moves the mouse over an HTML element
+onmouseout	The user moves the mouse away from an HTML element
+onkeydown	The user pushes a keyboard key
+onload	The browser has finished loading the 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STRING ATTRIBUES  https://youtu.be/VRz0nbax0uI     MUST WATCH 
+		consider a variable a="Hello Hello world"
+		string length= a.length; 			3
+		index= a.indexOf("world");			12				}both last and index returns -1 if element is not found
+		last index= a.lastindexOf("Hello")  6    	it sees the last occuring hello...since it is a last index
+		search= a.search("world")			12
