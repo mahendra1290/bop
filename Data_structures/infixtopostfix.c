@@ -1,19 +1,30 @@
 #include<stdio.h>
 #include<string.h>
-#include<expression.h>
+#include"expression.c"
+#include<time.h>
 
 int main(){
+    srand(time(0));
+    int i;
+    int inflen, ans, postlen;
     char str[MAX], post[MAX];
     char val;
-    int len, ans;
-    len = getInfix(str);
-    if(len > 0){
-		toPostfix(str, post, len);
-        len = strlen(post);
-        ans = evaluate(post, len);
-        printf("ans %d\n", ans);
-        printf("%s\n", post);
-        to
+    for(i=0; i<10; i++){
+        char *mine = makeInfix();
+	    printf("%s\n", mine);
     }
+    inflen = getInfix(str);
+    if(validateInfix(str, inflen)){
+        convertInfixToPostfix   (str, post, inflen);
+        postlen = strlen(post);
+        ans = solvePostfix(post, postlen);
+        printf("%s\n", post);
+        printf("solu : %d", ans);
+    }
+    else{
+        printf("sorry input is not correct...\n");
+    }
+    printf("ansss = %d", ((((7+9)-7)*7)*7+4));
+    return 0;
 }
 

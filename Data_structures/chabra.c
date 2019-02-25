@@ -9,7 +9,6 @@ int * add_poly(int poly_a[], int poly_b[], int deg_a, int deg_b);
 int max(int x, int y);
 
 int main(){
-
     int degree_a, degree_b, degree_c, i;
     int *poly_c;
     printf("Enter the degree of polynomial: ");
