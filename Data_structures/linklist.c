@@ -6,6 +6,7 @@ typedef struct node{
 	struct node *ptr;
 }node;
 
+void displayLinklist(node *start, int len);
 node *createLinkList(int len);
 
 int main(){
@@ -13,20 +14,36 @@ int main(){
 	printf("enter length of list\n");
 	scanf("%d", &len);
     node *start = createLinkList(len);
-    for(i=0; i<=len; i++){
-        printf("%d\n", (previous.ptr)->data);
-        previous.ptr = (previous.ptr)->ptr;
+    displayLinklist(start, len+5);
+}
+
+void displayLinklist(node *start, int len){
+    node *temp = start;
+    int i=0;
+    do{
+        printf("data -> %d\n", temp->data);
+        temp = temp->ptr;
     }
-    return 0;
+    while(i++ < len);
 }
 
 node *createLinkList(int len){
-    node start, previous;
-    previous.ptr = &start;
-    for(i=0; i<len; i++){
-        node *temp = (node*)malloc(sizeof(node));
+    int i=0, elem;
+    node *temp;
+    node *start = (node*)malloc(sizeof(node));
+    node previous;
+    previous.ptr = start;
+    printf("enter %d th data: ", i+1);
+    scanf("%d", &elem);
+    start->data = elem;
+    while(++i<len){
+        temp = (node*)malloc(sizeof(node));
         (previous.ptr)->ptr = temp;
         previous.ptr = temp;
+        printf("enter %d th data: ", i+1);
+        scanf("%d", &elem);
+        temp->data = elem;
     }
-    return &start;
+    temp->ptr = start;
+    return start;
 }
