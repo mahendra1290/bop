@@ -8,13 +8,14 @@ typedef struct node{
 
 void displayLinklist(node *start);
 node *createLinkList();
+int maxInList(node *start);
 
 int main(){
-	int i, len, data;
-	printf("enter length of list\n");
-	scanf("%d", &len);
+	printf("enter -1 to stop entering data and display\n");
     node *start = createLinkList();
     displayLinklist(start);
+    int maxx = maxInList(start);
+    printf("max in list %d\n", maxx);
 }
 
 void displayLinklist(node *start){
@@ -43,4 +44,16 @@ node *createLinkList(){
     while(elem != -1);
     temp->ptr = start;
     return start;
+}
+
+int maxInList(node* start){
+    node *temp = start;
+    int maxx = temp->data;
+    while(temp->data != -1){
+        if(temp->data > maxx){
+            maxx = temp->data;
+        }
+        temp = temp->ptr;
+    }
+    return maxx;
 }
