@@ -1,4 +1,5 @@
 #include<iostream>
+#include<gtk/gtk.h>
 #define MAX 50
 using namespace std;
 
