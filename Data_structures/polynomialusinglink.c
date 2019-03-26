@@ -49,8 +49,8 @@ polyTerm *getPolynomial(){
             printf("System error: memory can't be allocated\n");
             return NULL;
         }
-        printf("enter exponent and value: ");
-        scanf("%d %d", &term->expo, &term->val);
+        printf("enter value and exponent: ");
+        scanf("%d %d", &term->val, &term->expo);
         prevTerm->nextTermPtr = term;
         prevTerm = term;
         printf("want to add more term? [y\\n] ");

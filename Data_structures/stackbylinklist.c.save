@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<stdlib.h>
+
 
 typedef struct node{
     int data;
@@ -15,27 +15,22 @@ int pop(intStack *stack);
 
 int main(){
     intStack *stack;
-    stack->top = NULL;
     int choice;
-    int value;
+    int value
     while(1){
         printf("[1] push\n");
         printf("[2] pop\n");
         scanf("%d", &choice);
         if(choice == 1){
-            printf("enter the value: ");
-            scanf("%d", &value);
-            push(stack, value);
-        }
-        else{
-            value = pop(stack);
-            printf("popped value %d\n", value);
+            printf("enter the value :")
+            push(stack, )
         }
     }
+    
 }
 
 void push(intStack *stack, int value){
-    node *newNode = (node *)malloc(sizeof(node));
+    newNode = (node *)malloc(sizeof(node));
     newNode->data = value;
     newNode->ptr = stack->top;
     stack->top = newNode;

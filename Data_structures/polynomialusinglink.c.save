@@ -39,8 +39,8 @@ polyTerm *getPolynomial(){
     printf("Enter the exponent and value of polynomial terms\n");
     printf("warning: enter exponent in only decreasing order\n");
     printf("<---------------------------------------------->\n");
-    printf("enter exponent and value: ");
-    scanf("%d %d", &startTerm->expo, &startTerm->val);
+    printf("enter value and exponent: ");
+    scanf("%d %d", &startTerm->val, &startTerm->expo);
     printf("want to add more term? [y\\n] ");
     scanf(" %c", &conti);
     while(conti == 'y' || conti == 'Y'){
@@ -49,7 +49,7 @@ polyTerm *getPolynomial(){
             printf("System error: memory can't be allocated\n");
             return NULL;
         }
-        printf("enter exponent and value: ");
+        printf("enter value and ex: ");
         scanf("%d %d", &term->expo, &term->val);
         prevTerm->nextTermPtr = term;
         prevTerm = term;
@@ -152,8 +152,6 @@ void printPolynomial(polyTerm *poly){
 }
 
 polyTerm *multiplyPolynomials(polyTerm *poly_1, polyTerm *poly_2){
-    int exponOfA, exponOfB, exponOfC;
-    int valOfA, valOfB, valOfC;
     polyTerm *tempPolyA = NULL;
     polyTerm *tempPolyB = NULL;
     polyTerm *tempTerm = NULL;
@@ -165,18 +163,12 @@ polyTerm *multiplyPolynomials(polyTerm *poly_1, polyTerm *poly_2){
         return startTerm;
     }
     while(tempPolyA != NULL){
-        exponOfA = tempPolyA->expo;
-        valOfA   = tempPolyA->val;
         while(tempPolyB != NULL){
             tempTerm = (polyTerm *)malloc(sizeof(polyTerm));
-            exponOfB = tempPolyB->expo;
-            valOfB   = tempPolyB->val;
-            exponOfC = exponOfA+exponOfB;
-            valOfC   = valOfA*valOfB;
             tempTerm->expo = tempPolyA->expo + tempPolyB->expo;
-            tempTerm->val  = val;
-            tempPolyB = tempPolyB->nextTermPtr;
+            tempTerm->val  = tempPolyA->val * tempPolyB->val;
             startTerm = addPolynomial(startTerm, tempTerm);
+            tempPolyB = tempPolyB->nextTermPtr;
             free(tempTerm);
         }
         tempPolyB = poly_2;

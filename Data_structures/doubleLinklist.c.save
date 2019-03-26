@@ -25,15 +25,12 @@ node *deleteNodeAtPos(node *start, int position);
 void doubleLinklistOper(node *start);
 node *reverse(node *start);
 node *createReversed(node *start);
+node *reverseByRecursion(node *start);
 
 int main(){
     node *start;
     node *reversed;
-    //linklistOper(start);
-    start = createDoubLinklist(start);
-    reversed = createReversed(start);
-    traverse(reversed);
-    traverseReverse(reversed);
+    doubleLinklistOper(start);
     return 0;
 }
 //-------------------------------------------------------
@@ -376,6 +373,7 @@ void doubleLinklistOper(node *start){
         printf("[4] traverse\n");
         printf("[5] traverse reverse\n");
         printf("[6] reverse\n");
+        printf("[7] reverse by recursion");
         printf("-------------------------------\n");
         printf("enter operation to perform : ");
         scanf("%d", &mainChoice);
@@ -455,6 +453,11 @@ void doubleLinklistOper(node *start){
             break;
         case 6:
             start = reverse(start);
+            printf("link list reversed successfully\n");
+            break;
+        case 7:
+            start = reverseByRecursion(start);
+            printf("link list reversed successfully\n");
             break;
         default:
             printf("not a valid input\n");
@@ -496,4 +499,16 @@ node *createReversed(node *start){
         temp = temp->next;
      }
      return newNode;
+}
+//---------------------------------------------
+node *reverseByRecursion(node *start){
+    node *nextNode = NULL;
+    node *current = NULL;
+    current = start;
+    nextNode = current->next;
+    current->next = current->back;
+    current->back = nextNode;
+    if(nextNode != NULL)
+        return reverseByRecursion(nextNode);
+    return current;   
 }

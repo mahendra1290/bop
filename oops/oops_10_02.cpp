@@ -22,8 +22,19 @@ public:
 	void operator *=(Fraction);
 	void operator *=(float f);
 	void operator *=(double db);
-
+	int operator ()();
+    friend bool operator >(Fraction f1, Fraction f2);
 };
+
+bool operator >(Fraction f1, Fraction f2){
+	if(f1.frac > f2.frac)
+	    return true;
+	return false;
+}
+
+int Fraction::operator()(){
+    return int(frac);
+}
 
 void Fraction::operator =(float f){
 	///to assign value of fraction
@@ -61,6 +72,13 @@ int main(){
     f1 *= 3;
     f2 *= 6.4;
     f3 *= f1;
+	cout << f1()<<endl;
+	if(f1 > f2){
+		cout <<"yes"<<endl;
+	}
+	else{
+		cout << "no"<<endl;
+	}
     cout <<"fraction f1 : "<< f1 <<endl;
     cout <<"fraction f2 : "<< f2 <<endl;
     cout <<"fraction f3 : "<< f3 <<endl;
