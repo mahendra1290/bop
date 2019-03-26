@@ -11,9 +11,14 @@ typedef struct binTreeNode{
 
 binTreePointer createBinTree(binTreePointer parent, char child);
 
+void inorderTraversal(binTreePointer root);
+
+void preorderTraversal(binTreePointer root);
+
 int main(){
     binTreePointer root = NULL;
     root = createBinTree(root, 'n');
+    inorderTraversal(root);
 }
 
 binTreePointer createBinTree(binTreePointer parent, char child){
@@ -25,21 +30,21 @@ binTreePointer createBinTree(binTreePointer parent, char child){
         scanf("%d", &(root->data));
     }
     else if(child == 'l'){
-        printf("enter left child data of node with data %d :", parent->data);
+        printf("\nenter left child data of node with data %d :", parent->data);
         scanf("%d", &(root->data));
     }
     else if(child == 'r'){
-        printf("enter right child data of node with data %d :", parent->data);
+        printf("\nenter right child data of node with data %d :", parent->data);
         scanf("%d", &(root->data));
     }
     root->leftChild  = NULL;
     root->rightChild = NULL;
-    printf("does left child exist for node with data %d [y\\n]? ", root->data);
+    printf("\n<---does left child exist for data %d [y\\n]? ", root->data);
     scanf(" %c", &choice);
     if(choice == 'y'){
         root->leftChild = createBinTree(root, 'l');
     }
-    printf("does right child exist for node with data %d [y\\n]? ", root->data);
+    printf("\n<---does right child exist for data %d [y\\n]? ", root->data);
     scanf(" %c", &choice);
     if(choice == 'y'){
         root->rightChild = createBinTree(root, 'r');
@@ -47,3 +52,20 @@ binTreePointer createBinTree(binTreePointer parent, char child){
     return root;
 }
 
+void inorderTraversal(binTreePointer root){
+    if(root == NULL){
+        return;
+    }
+    inorderTraversal(root->leftChild);
+    printf("%d ", root->data);
+    inorderTraversal(root->rightChild);
+}
+
+void preorderTraversal(binTreePointer root){
+    if(root == NULL){
+        return;
+    }
+    printf("%d ", root->data);
+    preorderTraversal(root->leftChild);
+    preorderTraversal(root->rightChild);
+}
