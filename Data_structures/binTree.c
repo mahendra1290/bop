@@ -20,33 +20,30 @@ binTreePointer createBinTree(binTreePointer parent, char child){
     binTreePointer root = NULL;
     char choice = 'y';
     root = (binTreePointer)malloc(sizeof(binTreeNode));
-    if(child == 'n' || child == 'N'){
+    if(child == 'n'){
         printf("enter data of root : ");
         scanf("%d", &(root->data));
     }
-    else if(child == 'l' || child == 'L'){
-        printf("enter left branch data of %d :", parent->data);
+    else if(child == 'l'){
+        printf("enter left child data of node with data %d :", parent->data);
         scanf("%d", &(root->data));
     }
-    else if(child == 'r' || child == 'R'){
-        printf("enter right branch data of %d :", parent->data);
+    else if(child == 'r'){
+        printf("enter right child data of node with data %d :", parent->data);
         scanf("%d", &(root->data));
     }
     root->leftChild  = NULL;
     root->rightChild = NULL;
-    printf("left branch present ? ");
-    fflush(stdin);
+    printf("does left child exist for node with data %d [y\\n]? ", root->data);
     scanf(" %c", &choice);
     if(choice == 'y'){
         root->leftChild = createBinTree(root, 'l');
     }
-    fflush(stdin);
-    printf("right branch present ? ");
+    printf("does right child exist for node with data %d [y\\n]? ", root->data);
     scanf(" %c", &choice);
     if(choice == 'y'){
         root->rightChild = createBinTree(root, 'r');
     }
-    fflush(stdin);
     return root;
 }
 
