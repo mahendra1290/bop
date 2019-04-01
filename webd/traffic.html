@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            traffic light
+        </title>
+        <body>
+            <h2>TRAFFIC LIGHT</h2>
+            <img id="light" src="red.png"><br>
+            <button onclick="red()">red</button>
+            <button onclick="yellow()">yellow</button>
+            <button onclick="green()">green</button>
+        </body>
+        <script>
+            function red(){
+                var light;
+                light = document.getElementById("light");
+                light.src = "red.png";
+            }
+            function yellow(){
+                var light;
+                light = document.getElementById("light");
+                light.src = "yellow.png";
+            }
+            function green(){
+                var light;
+                light = document.getElementById("light");
+                light.src = "green.png";
+            }
+        </script>
+    </head>
+</html>
