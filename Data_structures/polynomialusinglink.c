@@ -56,6 +56,7 @@ polyTerm *getPolynomial(){
         printf("want to add more term? [y\\n] ");
         scanf(" %c", &conti);
     }
+    prevTerm->nextTermPtr = NULL;
     return startTerm;
 }
 
