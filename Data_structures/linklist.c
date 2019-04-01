@@ -17,14 +17,20 @@ node *deleteNodeAtPos(node *start, int position);
 void linklistOper(node *start);
 node *reverse(node *start);
 node *createReversed(node *start);
+void deleteOddNode(node **start);
+node *mergeLinklist(node *first, node *second);
 
 int main(){
-    node *start;
-    node *reversed;
+    node *first;
+    node *second;
+    node *merged;
     //linklistOper(start);
-    start = createLinklist(start);
-    reversed = createReversed(start);
-    traverse(reversed);
+    first  = createLinklist();
+    second = createLinklist();
+    merged = mergeLinklist(first, second);
+    traverse(merged);
+    //reversed = createReversed(start);
+    //traverse(reversed);
 }
 //----------------------------------------------------------- 
 void traverse(node *start){
@@ -113,14 +119,14 @@ node *createLinklist(){
 
 int maxInList(node* start){
     node *temp = start;
-    int maxx = temp->data;
-    while(temp->data != -1){
-        if(temp->data > maxx){
-            maxx = temp->data;
-        }
-        temp = temp->ptr;
-    }
-    return maxx;
+    int maxx = temp->data;      
+    while(temp->data != -1){      
+        if(temp->data > maxx){      
+            maxx = temp->data;      
+        }      
+        temp = temp->ptr;      
+    }      
+    return maxx;      
 }
 //----------------------------------------------------------- 
 void insertAfter(node *start, int value, int newValue){
@@ -322,6 +328,7 @@ void linklistOper(node *start){
         printf("[3] delete value in linklist\n");
         printf("[4] traverse\n");
         printf("[5] reverse\n");
+        printf("[6] delete odd node\n");
         printf("-------------------------------\n");
         printf("enter operation to perform : ");
         scanf("%d", &mainChoice);
@@ -399,6 +406,9 @@ void linklistOper(node *start){
         case 5:
             start = reverse(start);
             break;
+        case 6:
+            deleteOddNode(&start);
+            break;
         default:
             printf("not a valid input\n");
             break;
@@ -437,4 +447,60 @@ node *createReversed(node *start){
         temp = temp->ptr;
     }
     return newNode;
+}
+//---------------------------------------------------------
+void deleteOddNode(node **start){
+    node *newStart, *next, *curr;
+    newStart = (*start)->ptr;
+    if(newStart){
+        next = newStart->ptr;
+        curr = newStart;
+        while(next != NULL && curr != NULL){
+            curr->ptr = next->ptr;
+            free(next);
+            if(curr){
+                curr = curr->ptr;
+                if(curr)
+                    next = curr->ptr;
+            }
+        }
+    }
+    free(*start);
+    *start = newStart;
+}
+//---------------------------------------------------------
+node *mergeLinklist(node *first, node *second){
+    node *merged;
+    node *prev;
+    if(first->data > second->data){
+        merged = first;
+    }
+    else{
+        merged = second;
+    }
+    while(first != NULL && second != NULL){
+        if(first->data > second->data){
+            while(first != NULL && first->data > second->data){
+                prev = first;
+                first = first->ptr;
+            }
+            prev->ptr = second;
+            second = second->ptr;
+        }
+        else{
+            while(second != NULL && first->data <= second->data){
+                prev = second;
+                second = second->ptr;
+            }
+            prev->ptr = first;
+            first = first->ptr;
+        }
+    }
+    if(first == NULL){
+        prev->ptr = second;
+    }
+    else if(second == NULL){
+        prev->ptr = first;
+    }
+    return merged;
 }

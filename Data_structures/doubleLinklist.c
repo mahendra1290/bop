@@ -7,6 +7,14 @@ author  : mahendra
 #include<stdio.h>
 #include<stdlib.h>
 
+#define MALLOC(ptr, size) \
+    if(!((ptr) = malloc(size))){\
+        fprintf(stderr, "Insufficient memory");\
+        exit(EXIT_FAILURE);\
+    }
+
+#define NODE_SIZE (sizeof(node))
+
 typedef struct node{
     int data;
     struct node *back;
@@ -43,69 +51,63 @@ node *createDoubLinklist(){
     node *prevNode;
     node *start;
     node *newNode;
-    start = (node*)malloc(sizeof(node));
-    if(start == NULL){
-        printf("ERROR: memory can't be allocated\n");
-        return start;
-    }
-    else{
-        temp = start;
-        prevNode  = temp;
-        printf("enter data of first node: ");
-        scanf("%d", &elem);
-        temp->data  = elem;
-        printf("select mode to enter data\n");
-        printf("[1] enter fixed number of data\n");
-        printf("[2] enter data till you want\n");
-        printf("[3] create no new node\n");
-        scanf("%d",&mode);
-        switch(mode){
-        case 1:
-            printf("enter number of data to enter: ");
-            scanf("%d", &count);
-            i = 1;
-            while(i <= count){
-                newNode = (node *)malloc(sizeof(node));
-                if(newNode == NULL){
-                    printf("ERROR: memory can't be allocated\n");
-                    return start;
-                }
-                else{
-                    printf("enter %d th data: ", i);
-                    scanf("%d", &elem);
-                    newNode->data = elem;
-                    prevNode->next = newNode;
-                    newNode->back = prevNode;
-                    prevNode = newNode;
-                    i++;
-                }
+    MALLOC(start, NODE_SIZE);
+    temp = start;
+    prevNode  = temp;
+    printf("enter data of first node: ");
+    scanf("%d", &elem);
+    temp->data  = elem;
+    printf("select mode to enter data\n");
+    printf("[1] enter fixed number of data\n");
+    printf("[2] enter data till you want\n");
+    printf("[3] create no new node\n");
+    scanf("%d",&mode);
+    switch(mode){
+    case 1:
+        printf("enter number of data to enter: ");
+        scanf("%d", &count);
+        i = 1;
+        while(i <= count){
+            newNode = (node *)malloc(sizeof(node));
+            if(newNode == NULL){
+                printf("ERROR: memory can't be allocated\n");
+                return start;
             }
-            break;
-        case 2:
-            printf("want to add more node? [y/n] ");
-            scanf(" %c", &conti);
-            while(conti == 'Y' || conti == 'y'){
-                newNode = (node *)malloc(sizeof(node));
-                if(newNode == NULL){
-                    printf("ERROR: memory can't be allocated\n");
-                    return start;
-                }
-                printf("enter data: ");
+            else{
+                printf("enter %d th data: ", i);
                 scanf("%d", &elem);
                 newNode->data = elem;
                 prevNode->next = newNode;
                 newNode->back = prevNode;
                 prevNode = newNode;
-                printf("want to add more node? [y/n] ");
-                scanf(" %c", &conti);
+                i++;
             }
-            break;
-            
-        default:
-            printf("no new node added\n");                             
-            break;
         }
+        break;
+    case 2:
+        printf("want to add more node? [y/n] ");
+        scanf(" %c", &conti);
+        while(conti == 'Y' || conti == 'y'){
+            newNode = (node *)malloc(sizeof(node));
+            if(newNode == NULL){
+                printf("ERROR: memory can't be allocated\n");
+                return start;
+            }
+            printf("enter data: ");
+            scanf("%d", &elem);
+            newNode->data = elem;
+            prevNode->next = newNode;
+            newNode->back = prevNode;
+            prevNode = newNode;
+            printf("want to add more node? [y/n] ");
+            scanf(" %c", &conti);
+        break;
+        
+    default:
+        printf("no new node added\n");                             
+        break;
     }
+}
     prevNode->next = NULL;
     return start;
 }
@@ -165,9 +167,8 @@ node *insertAtPosi(node *start, int position, int newValue){
         printf("insertion operation failed\n");
         return newStart;
     }
-    newNode = (node *)malloc(sizeof(node));
+    MALLOC(newNode, NODE_SIZE);
     newNode->data = newValue;
-    
     if(position == 1){
         newNode->back = NULL;
         newNode->next = temp;
@@ -200,7 +201,7 @@ void insertAfter(node *start, int value, int newValue){
         printf("insertion operation failed\n");
         return;
     }
-    newNode = (node *)malloc(sizeof(node));
+    MALLOC(newNode, NODE_SIZE);
     newNode->data = newValue;
     newNode->next = temp->next;
     newNode->back = temp;
@@ -227,7 +228,7 @@ node *insertBefore(node *start, int value, int newValue){
         printf("insertion operation failed\n");
         return newStart; 
     }
-    newNode = (node *)malloc(sizeof(node));
+    MALLOC(newNode, NODE_SIZE);
     newNode->data = newValue;
     newNode->next = temp;
     newNode->back = (temp->back);
@@ -489,7 +490,7 @@ node *createReversed(node *start){
      node *newNode  = NULL;
      temp = start;
      while(temp != NULL){
-        newNode = (node *)malloc(sizeof(node));
+        MALLOC(newNode, NODE_SIZE);
         newNode->data = temp->data;
         newNode->next = previous;
         if(previous != NULL){
