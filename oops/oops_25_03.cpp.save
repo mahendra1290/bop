@@ -1,8 +1,0 @@
-#include<iostream>
-
-class Queue{
-    private:
-        int arr[100];
-    public:
-        void i
-};
