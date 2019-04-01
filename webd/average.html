@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h3>marksheet</h3>
+        <label>Subject 1 </label>
+        <input id="sub_1"type="text"><br>
+        <label>Subject 2 </label>
+        <input id="sub_2"type="text"><br>
+        <label>Subject 3 </label>
+        <input id="sub_3"type="text"><br>
+        <label>average </label>
+        <label id="average"></label><br>
+        <button onclick="getAverage();">get result</button>
+    </body>
+    <script>
+        function getAverage(){
+            var marks_1;
+            var marks_2;
+            var marks_3;
+            marks_1 = document.getElementById("sub_1").value;
+            marks_2 = document.getElementById("sub_2").value;
+            marks_3 = document.getElementById("sub_3").value;
+            marks_1 = parseFloat(marks_1); //to convert string to float
+            marks_2 = parseFloat(marks_2);
+            marks_3 = parseFloat(marks_3);
+            var average = (marks_1+marks_2+marks_3)/3.0;
+            average = average.toFixed(2); //ex: 5.6789 ko 5.68 m convert krne k //liye
+            document.getElementById("average").innerHTML = average;
+        }
+    </script>
+</html>
