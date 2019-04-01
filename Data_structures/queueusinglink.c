@@ -54,6 +54,7 @@ void insertElem(queue *que){
         (que->rear)->ptr = newNode;
     }
     que->rear  = newNode;
+    newNode->ptr = NULL;
 }
 
 int deleteElem(queue *que){

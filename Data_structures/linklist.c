@@ -19,16 +19,21 @@ node *reverse(node *start);
 node *createReversed(node *start);
 void deleteOddNode(node **start);
 node *mergeLinklist(node *first, node *second);
+void splitIntoFour(node **first, node **second, node **three, node **four, node *start);
 
 int main(){
-    node *first;
-    node *second;
-    node *merged;
+    node *first = NULL;
+    node *second = NULL;
+    node *third = NULL;
+    node *fourth = NULL;
+    node *start;
     //linklistOper(start);
-    first  = createLinklist();
-    second = createLinklist();
-    merged = mergeLinklist(first, second);
-    traverse(merged);
+    start  = createLinklist();
+    splitIntoFour(&first, &second, &third, &fourth, start);
+    traverse(first);
+    traverse(second);
+    traverse(third);
+    traverse(fourth);
     //reversed = createReversed(start);
     //traverse(reversed);
 }
@@ -288,6 +293,10 @@ node *deleteNodeAtPos(node *start, int position){
     node *prevNode;
     temp = start;
     newStart = start;
+    if(start == NULL){
+        printf("can't delete from empty linklist\n");
+        return newStart;
+    }
     while(temp->ptr != NULL && i<position){
         prevNode = temp;
         temp = temp->ptr;
@@ -470,37 +479,54 @@ void deleteOddNode(node **start){
 }
 //---------------------------------------------------------
 node *mergeLinklist(node *first, node *second){
-    node *merged;
-    node *prev;
-    if(first->data > second->data){
-        merged = first;
-    }
-    else{
-        merged = second;
-    }
+    node *merged = NULL;
+    node *prev = NULL;
     while(first != NULL && second != NULL){
         if(first->data > second->data){
+            if(!merged)
+                merged = first;
             while(first != NULL && first->data > second->data){
                 prev = first;
                 first = first->ptr;
             }
             prev->ptr = second;
-            second = second->ptr;
         }
         else{
+            if(!merged)
+                merged = second;
             while(second != NULL && first->data <= second->data){
                 prev = second;
                 second = second->ptr;
             }
             prev->ptr = first;
-            first = first->ptr;
         }
     }
-    if(first == NULL){
+    if(!first){
         prev->ptr = second;
+        return merged;
     }
-    else if(second == NULL){
-        prev->ptr = first;
-    }
+    prev->ptr = first;
     return merged;
+}
+//-----------------------------------------------------------
+void splitIntoFour(node **first, node **second, node **three, node **four, node *start){
+    int i=0;
+    node **arr[4] = {first, second, three, four};
+    node *preArr[4] = {NULL, NULL, NULL, NULL};
+    node *mainTemp = start;
+    node *temp;
+    while(mainTemp != NULL){
+        for(i=0; i<4 && mainTemp != NULL; i++){
+            temp = (node *)malloc(sizeof(node));
+            if(*arr[i] == NULL){
+               (*arr[i]) = temp;
+               //(*arr[i])->data = mainTemp->data;
+            }
+            temp->data = mainTemp->data;
+            if(preArr[i] != NULL)
+                preArr[i]->ptr = temp;
+            preArr[i] = (*arr[i]);  
+            mainTemp = mainTemp->ptr;
+        }
+    }
 }

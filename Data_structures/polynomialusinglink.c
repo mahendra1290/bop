@@ -177,6 +177,3 @@ polyTerm *multiplyPolynomials(polyTerm *poly_1, polyTerm *poly_2){
     }
     return startTerm;
 }
-
-
-
