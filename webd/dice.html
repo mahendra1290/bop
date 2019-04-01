@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>dice throw</title>
+    </head>
+    <body>
+        <h2>Your throw is</h2>
+        <h3 id="diceValue"></h3>
+        <button onclick="throwDice()">Throw</button>
+    </body>
+    <script>
+        function throwDice(){
+            var value;
+            value = Math.floor(Math.random()*6+1);
+            document.getElementById("diceValue").innerHTML = value;
+        }
+    </script>
+</html>
