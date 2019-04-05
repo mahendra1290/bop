@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>This is new table</title>
+</head>
+<body>
+	<p>Number Square Cube</p><br>
+	<p id = "id1"></p>
+	<button onclick="change();">Press Me</button>
+</body>
+<script type="text/javascript">
+	function change()
+	{
+		var store = "";
+		for(var i=5; i<=11; i++)
+		{
+			var temp = "<tr><td>" +i+ " &nbsp </td><td>" +(i*i)+ " &nbsp </td><td>" +(i*i*i)+ " &nbsp </td></tr><br>";
+			store = store +temp;
+			temp = "";
+		}	
+		document.getElementById('id1').innerHTML = "<table>" + store + "</table>";
+	}
+</script>
+</html>
