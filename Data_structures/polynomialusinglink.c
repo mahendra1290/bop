@@ -63,71 +63,60 @@ polyTerm *getPolynomial(){
 polyTerm *addPolynomial(polyTerm *poly_1, polyTerm *poly_2){
     int exponOfA, exponOfB, exponOfC;
     int valOfA, valOfB, valOfC;
-    polyTerm *tempPolyA = NULL;
-    polyTerm *tempPolyB = NULL;
+    polyTerm *tempA = NULL;
+    polyTerm *tempB = NULL;
     polyTerm *startTerm = NULL;
     polyTerm *newTerm   = NULL;
     polyTerm *prevTerm  = NULL;
-    tempPolyA = poly_1;
-    tempPolyB = poly_2;
-    while(tempPolyA != NULL && tempPolyB != NULL){
-        exponOfA = tempPolyA->expo;
-        exponOfB = tempPolyB->expo;
-        valOfA   = tempPolyA->val;
-        valOfB   = tempPolyB->val;
-        if(exponOfA == exponOfB){
-            valOfC   = valOfA+valOfB;
-            tempPolyA = tempPolyA->nextTermPtr;
-            tempPolyB = tempPolyB->nextTermPtr;
+    tempA = poly_1;
+    tempB = poly_2;
+    while(tempA != NULL && tempB != NULL){
+        if(tempA->expo == tempB->expo){
+            valOfC   = tempA->val + tempB->val;
+            tempA = tempA->nextTermPtr;
+            tempB = tempB->nextTermPtr;
             if(valOfC != 0)
-                exponOfC = exponOfA;
-            else
-                continue;
+                exponOfC = tempA->expo;
         }
-        else if(exponOfA > exponOfB){
-            valOfC = valOfA;
-            exponOfC = exponOfA;
-            tempPolyA = tempPolyA->nextTermPtr;
+        else if(tempA->expo > tempB->expo){
+            valOfC = tempA->val;
+            exponOfC = tempA->expo;
+            tempA = tempA->nextTermPtr;
         }
-        else if(exponOfA < exponOfB){
-            valOfC = valOfB;
-            exponOfC = exponOfB;
-            tempPolyB = tempPolyB->nextTermPtr;
+        else if(tempA->expo < tempB->expo){
+            valOfC = tempB->val;
+            exponOfC = tempB->expo;
+            tempB = tempB->nextTermPtr;
         }
         newTerm = (polyTerm *)malloc(sizeof(polyTerm));
+        newTerm->expo = exponOfC;
+        newTerm->val  = valOfC;
         if(prevTerm != NULL){
             prevTerm->nextTermPtr = newTerm;
         }
         if(startTerm == NULL){
             startTerm = newTerm;
         }
-        newTerm->expo = exponOfC;
-        newTerm->val  = valOfC;
         prevTerm = newTerm;
     }
-    while(tempPolyA != NULL){
+    while(tempA != NULL || tempB){
         newTerm = (polyTerm *)malloc(sizeof(polyTerm));
         if(startTerm == NULL){
             startTerm = newTerm;
         }
-        newTerm->expo = tempPolyA->expo;
-        newTerm->val  = tempPolyA->val;
-        if(prevTerm != NULL)
-            prevTerm->nextTermPtr = newTerm;
-        prevTerm  = newTerm;
-        tempPolyA = tempPolyA->nextTermPtr;
-    }
-    while(tempPolyB != NULL){
-        newTerm = (polyTerm *)malloc(sizeof(polyTerm));
-        if(startTerm == NULL){
-            startTerm = newTerm;
+        if(tempA != NULL){
+            newTerm->expo = tempA->expo;
+            newTerm->val  = tempA->val;
+            tempA = tempA->nextTermPtr;
         }
-        newTerm->expo = tempPolyB->expo;
-        newTerm->val  = tempPolyB->val;
+        else{
+            newTerm->expo = tempB->expo;
+            newTerm->val  = tempB->val;
+            tempB = tempB->nextTermPtr;
+        }
         if(prevTerm != NULL)
             prevTerm->nextTermPtr = newTerm;
         prevTerm  = newTerm;
-        tempPolyB = tempPolyB->nextTermPtr;
     }
     return startTerm;
 }

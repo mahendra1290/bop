@@ -32,5 +32,17 @@ function showEarning(){
 }
 
 function encrypt(){
-    var data = document.getElementById("")
+    var data = parseInt(document.getElementById("data").value);
+    if(data > 9999){
+        alert("can encode only four digit code");
+    }
+    var num = "";
+    while(data > 0){
+        var digit = data%10;
+        alert(digit);
+        digit = (digit+7)%10;
+        num += digit;
+        data = parseInt(data/10);
+    }
+    document.getElementById("encrypted").value = num;
 }
