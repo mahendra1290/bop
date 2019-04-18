@@ -23,7 +23,8 @@ void deleteAfter(node *start, int value);
 node *deleteNode(node *start, int value);
 node *deleteNodeAtPos(node *start, int position);
 
-int main(){
+int main()
+{
     node *start;
     start = createDoubLinklist();
     traverse(start);
