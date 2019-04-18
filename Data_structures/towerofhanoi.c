@@ -1,3 +1,10 @@
+/********************************
+ * Author     : Mahendra Suthar
+ * Desciption : it prints all step to solve
+ *              tower of hanoi of given 
+ *              disks
+ * ******************************/
+
 //to show all steps to solve tower of hanoi problem
 #include <stdio.h>
 

@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#include"expression.c"
+#include"expression.h"
 #include<time.h>
 
 int main(){

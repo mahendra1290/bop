@@ -1,3 +1,11 @@
+/********************************
+ * Author     : Mahendra Suthar
+ * Desciption : All function of binary tree
+ *              and binary search tree
+ * Functions  :
+ * ******************************/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -20,22 +28,39 @@ typedef struct treeNode{
 }treeNode;
 
 treePointer createBinTree(treePointer parent, char child);
+
 void inorderTraversal(treePointer root);
+
 void preorderTraversal(treePointer root);
+
 void postorderTraversal(treePointer root);
+
 int findMaxInBinTree(treePointer root);
+
 int getSumOfBinTree(treePointer root);
+
 int getDepthOfBinTree(treePointer root);
+
 int getLeafNodeCount(treePointer root);
+
 int getTotalNodeCount(treePointer root);
+
 int getNonLeafNodeCount(treePointer root);
+
 treePointer searchInBinTree(treePointer root, int value);
+
 void binTreeOper(treePointer root);
+
 treePointer insertion(treePointer root, int value);
+
 treePointer createBinSearchTree(treePointer root, int val);
+
 treePointer searchInBst(treePointer root, int val);
+
 void deleteNode(treePointer node);
+
 treePointer getSuccessor(treePointer node);
+
 treePointer getPreccessor(treePointer node);
 
 int main(){
@@ -62,7 +87,8 @@ treePointer createBinSearchTree(treePointer root, int noOfItems){
     }
     return createBinSearchTree(root, noOfItems-1);
 }
-//--------------------------------------------------------------
+
+//return binary tree
 treePointer createBinTree(treePointer parent, char child){
     treePointer root = NULL;
     int choice;
@@ -93,7 +119,7 @@ treePointer createBinTree(treePointer parent, char child){
     }
     return root;
 }
-//--------------------------------------------
+//inorder traversal
 void inorderTraversal(treePointer root){
     if(root == NULL){
         return;

@@ -1,5 +1,8 @@
-//sorting algorithms
-
+/********************************
+ * Author     : Mahendra Suthar
+ * Desciption : All sorting algorithms
+ *              heapsort not included
+ * ******************************/
 #include<stdio.h>
 
 void selection(int arr[], int len, int reverse);
