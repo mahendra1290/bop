@@ -28,8 +28,6 @@ void transpose(matrix *arr);
 void merge(matrix *arr, int start, int mid, int end);
 void merge_sort(matrix *arr, int start, int end);
 matrix *multiply(matrix *mat_1, matrix *mat_2);
-void insert(node **start, int val);
-void display(node *start);
 
 int main()
 {
@@ -147,123 +145,6 @@ void merge(matrix *arr, int start, int mid, int end)
         arr[i] = temp[i - start];
     }
 }
-//multiply sparse matrix using transpose
-/* matrix *multiply(matrix *mat_1, matrix *mat_2)
-{
-    matrix *mat_3 = NULL;
-    if (mat_1[0].col == mat_2[0].row)
-    {
-        transpose(mat_2);
-    }
-    displayMatrix(mat_2);
-    int maxSize = mat_1[0].row * mat_2[0].row;
-    mat_3 = malloc((sizeof(matrix) * (maxSize + 1)));
-    mat_3[0].row = mat_1[0].row;
-    mat_3[0].col = mat_2[0].row;
-    mat_3[0].val = 0;
-    node *first = NULL;
-    node *second = NULL;
-    insert(&first, 1);
-    insert(&second, 1);
-    for (int i = 1; i <= mat_1[0].val; i++)
-    {
-        if (mat_1[i].row != mat_1[(first->back)->data].row)
-        {
-            insert(&first, i);
-        }
-    }
-    insert(&first, mat_1[0].val+1);
-    for (int i = 1; i <= mat_2[0].val; i++)
-    {
-        if (mat_2[i].row != mat_2[(second->back)->data].row)
-        {
-            insert(&second, i);
-        }
-    }
-    insert(&second, mat_2[0].val+1);
-    printf("first :\n");
-    display(first);
-    printf("second :\n");
-    display(second);
-    node *temp_1 = first;
-    node *temp_2 = second;
-    int k = 1;
-    int i = 0;
-    int j = 0;
-    int temp = 0;
-    do{
-        i = temp_1->data;
-        temp_2 = second;
-        j = temp_2->data;
-        while(i < (temp_1->next)->data){
-            temp = 0;
-            j = temp_2->data;
-            while(j < (temp_2->next)->data && i < (temp_1->next)->data){
-                if(mat_1[i].col == mat_2[j].col){
-                    temp += mat_1[i].val * mat_2[j].val;
-                    i++;
-                    j++;
-                }
-                else if(mat_1[i].col < mat_2[j].col){
-                    i++;
-                }
-                else{
-                    j++;
-                }
-            }
-            if(temp){
-                mat_3[k].val = temp;
-                mat_3[k].row = mat_1[temp_1->data].row;
-                mat_3[k].col = mat_2[temp_2->data].row;
-                k++;
-            }
-            i = temp_1->data;
-            temp_2 = temp_2->next;
-            if(temp_2->data >= mat_2[0].val){
-                break;
-            }
-        }
-        temp_1 = temp_1->next;
-    }while(temp_1->data < mat_1[0].val+1);
-
-    return mat_3;
-} */
-//insert element into linklist
-void insert(node **start, int val)
-{
-    node *newNode = NULL;
-    newNode = malloc(sizeof(node));
-    newNode->data = val;
-    if (!(*start))
-    {
-        *start = newNode;
-        (*start)->back = *start;
-        (*start)->next = *start;
-    }
-    else
-    {
-        node *prev = NULL;
-        prev = (*start)->back;
-        prev->next = newNode;
-        newNode->back = prev;
-        newNode->next = *start;
-        (*start)->back = newNode;
-    }
-}
-
-void display(node *start)
-{
-    if (start)
-    {
-        node *temp = start;
-        do
-        {
-            printf("%d ", temp->data);
-            temp = temp->next;
-        } while (temp != start);
-        printf("\n");
-    }
-}
 //sparse matix multiplication without helper array
 matrix *multiply(matrix *mat_1, matrix *mat_2)
 {
@@ -272,20 +153,24 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
     {
         transpose(mat_2);
     }
+    else
+    {
+        return mat_3;
+    }
     int maxSize = mat_1[0].row * mat_2[0].row;
     mat_3 = malloc((sizeof(matrix) * (maxSize + 1)));
     mat_3[0].row = mat_1[0].row;
     mat_3[0].col = mat_2[0].row;
     mat_3[0].val = 0;
-    int rowIndex = 1;
-    int colIndex = 1;
+    int currRow = 1;
+    int currCol = 1;
     int i = 1;
     int j = 1;
     int k = 1;
     int temp = 0;
-    while (rowIndex < mat_1[0].val)
+    while (currRow < mat_1[0].val)
     {
-        while (colIndex < mat_2[0].val)
+        while (currCol < mat_2[0].val)
         {
             while (1)
             {
@@ -303,14 +188,14 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
                 {
                     j++;
                 }
-                if (mat_1[i].row != mat_1[rowIndex].row || mat_2[j].row != mat_2[colIndex].row ||
+                if (mat_1[i].row != mat_1[currRow].row || mat_2[j].row != mat_2[currCol].row ||
                     (i > mat_1[0].val && j > mat_2[0].val))
                 {
                     if (temp)
                     {
                         mat_3[k].val = temp;
-                        mat_3[k].row = mat_1[rowIndex].row;
-                        mat_3[k].col = mat_2[colIndex].row;
+                        mat_3[k].row = mat_1[currRow].row;
+                        mat_3[k].col = mat_2[currCol].row;
                         mat_3[0].val++;
                         temp = 0;
                         k++;
@@ -318,17 +203,17 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
                     break;
                 }
             }
-            if (mat_1[i].row != mat_1[rowIndex].row)
+            if (mat_1[i].row != mat_1[currRow].row)
             {
                 while (j < mat_2[0].val &&
-                       (mat_2[j].row == mat_2[colIndex].row))
+                       (mat_2[j].row == mat_2[currCol].row))
                 {
                     j++;
                 }
                 if (j != mat_2[0].val)
                 {
-                    colIndex = j;
-                    i = rowIndex;
+                    currCol = j;
+                    i = currRow;
                 }
                 else
                 {
@@ -336,10 +221,10 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
                     break;
                 }
             }
-            else if (mat_2[j].row != mat_2[colIndex].row)
+            else if (mat_2[j].row != mat_2[currCol].row)
             {
-                colIndex = j;
-                i = rowIndex;
+                currCol = j;
+                i = currRow;
             }
             else
             {
@@ -347,16 +232,16 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
             }
         }
         while (i < mat_1[0].val &&
-               (mat_1[i].row == mat_1[rowIndex].row))
+               (mat_1[i].row == mat_1[currRow].row))
         {
             i++;
         }
         if (i != mat_1[0].val)
         {
-            rowIndex = i;
-            i = rowIndex;
-            colIndex = 1;
-            j = colIndex;
+            currRow = i;
+            i = currRow;
+            currCol = 1;
+            j = currCol;
         }
         else
         {
