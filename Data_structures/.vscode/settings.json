@@ -1,0 +1,79 @@
+{
+    {
+        "editor.fontSize": 17,
+        "editor.wordWrap": "wordWrapColumn",
+        "terminal.explorerKind": "external",
+        "files.autoSave": "onFocusChange",
+        "editor.minimap.enabled": true,
+        "workbench.colorTheme": "Monokai",
+        "terminal.external.linuxExec": "gnome-terminal",
+        "git.autofetch": true,
+        "c-cpp-compile-run.run-in-external-terminal": true,
+        "editor.tokenColorCustomizations": {
+            "[Monokai]":{
+                "keywords": "#69f869",
+                "strings": "#ebf374",
+                "functions": "#ff9c2b",
+                "comments": "#a19999",
+                "textMateRules": [
+                    {
+                        "scope": "keyword.operator",
+                        "settings": {
+                            "foreground": "#d3d3d3"
+                        }
+                    },
+                    {
+                        "scope":"support.function",
+                        "settings": {
+                            "foreground": "#00d9ff"
+                        }
+                    },
+                    {
+                        "scope":"constant.other",
+                        "settings": {
+                            "foreground": "#eca29f"
+                        }
+                    },
+                    {
+                        "scope":"constant.character.escape",
+                        "settings": {
+                            "foreground": "#ffae00",
+                        }
+                    },
+                    {
+                        "scope":"keyword.operator",
+                        "settings": {
+                            "foreground": "#c5d878"
+                        }
+                    },
+                    {
+                        "scope":"entity.name.tag",
+                        "settings": {
+                            "foreground": "#00e1ff"
+                        }
+                    },
+                    {
+                        "scope":"meta.tag",
+                        "settings": {
+                            "foreground": "#f5a36d"
+                        }
+                    },
+                    {
+                        "scope":"storage.type",
+                        "settings": {
+                            "foreground": "#45b8db",
+                            "fontStyle": ""
+                        }
+                    }
+                ]
+            }
+        },
+        "editor.acceptSuggestionOnEnter": "smart",
+        "editor.suggest.localityBonus": true,
+        "workbench.iconTheme": "material-icon-theme",
+        "explorer.confirmDelete": false,
+        "C_Cpp.updateChannel": "Insiders",
+        "materialTheme.accent": "Cyan",
+        "editor.fontFamily": "'Consolas', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'"
+    }
+}
