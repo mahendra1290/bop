@@ -2,15 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build linklist",
-      "type": "process",
-      "command": "gcc doubleLinklist.c -o doubleLinklist",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
       "type": "shell",
       "label": "gcc-7 build active file",
       "command": "/usr/bin/gcc-7",
@@ -22,7 +13,40 @@
       ],
       "options": {
         "cwd": "/usr/bin"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
       }
+    },
+    {
+      "type": "process",
+      "label": "memory check active file",
+      "command": "/usr/bin/valgrind",
+      "args": [
+        "--leak-check=full",
+        "${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "options": {
+        "cwd": "/usr/bin"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "type": "shell",
+      "label": "run active file",
+      "command": "${fileDirname}/${fileBasenameNoExtension}",
+      "options": {
+        "cwd": "/usr/bin"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
     }
   ]
 }

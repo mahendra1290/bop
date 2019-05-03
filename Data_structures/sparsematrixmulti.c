@@ -168,9 +168,10 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
     int j = 1;
     int k = 1;
     int temp = 0;
-    while (currRow < mat_1[0].val)
+    while (i <= mat_1[0].val)
     {
-        while (currCol < mat_2[0].val)
+        j = 1;
+        while (i <= mat_1[0].val && j <= mat_2[0].val)
         {
             while (1)
             {
@@ -188,7 +189,8 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
                 {
                     j++;
                 }
-                if (mat_1[i].row != mat_1[currRow].row || mat_2[j].row != mat_2[currCol].row ||
+                if ((mat_1[i].row != mat_1[currRow].row) || 
+                    (mat_2[j].row != mat_2[currCol].row) || 
                     (i > mat_1[0].val && j > mat_2[0].val))
                 {
                     if (temp)
@@ -205,20 +207,15 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
             }
             if (mat_1[i].row != mat_1[currRow].row)
             {
-                while (j < mat_2[0].val &&
-                       (mat_2[j].row == mat_2[currCol].row))
+                while (j <= mat_2[0].val &&
+                    (mat_2[j].row == mat_2[currCol].row))
                 {
                     j++;
                 }
-                if (j != mat_2[0].val)
+                if (j <= mat_2[0].val)
                 {
                     currCol = j;
                     i = currRow;
-                }
-                else
-                {
-                    j = 1;
-                    break;
                 }
             }
             else if (mat_2[j].row != mat_2[currCol].row)
@@ -226,28 +223,17 @@ matrix *multiply(matrix *mat_1, matrix *mat_2)
                 currCol = j;
                 i = currRow;
             }
-            else
-            {
-                break;
-            }
         }
-        while (i < mat_1[0].val &&
-               (mat_1[i].row == mat_1[currRow].row))
+        while (i <= mat_1[0].val &&
+            (mat_1[i].row == mat_1[currRow].row))
         {
             i++;
         }
-        if (i != mat_1[0].val)
+        if (i <= mat_1[0].val)
         {
             currRow = i;
-            i = currRow;
             currCol = 1;
-            j = currCol;
-        }
-        else
-        {
-            break;
         }
     }
-    transpose(mat_2);
     return mat_3;
 }

@@ -1,27 +1,28 @@
 #include<stdio.h>
 
-struct elem{
+typedef struct Term
+{
     int row;
     int col;
     int val;
-};
+} matrix;
 
-void read_matrix(struct elem arr[]);
+void read_matrix(matrix arr[]);
 
-void f_transpose(struct elem mat[], struct elem trans[]);
+void f_transpose(matrix mat[], matrix trans[]);
 
-void disp_matrix(struct elem mat[]);
+void disp_matrix(matrix mat[]);
 
 int main(){
     printf("Ready to find fast transpose of sparse matrix!...\n\n");
-    struct elem mat_1[100], trans_mat[100];
+    matrix mat_1[100], trans_mat[100];
     read_matrix(mat_1);
     f_transpose(mat_1, trans_mat);
     disp_matrix(mat_1);
     disp_matrix(trans_mat);
 }
 
-void read_matrix(struct elem mat[]){
+void read_matrix(matrix mat[]){
     //to read matrix
     int term, i, j, k;
     printf("Enter the rows and columns: ");
@@ -43,7 +44,7 @@ void read_matrix(struct elem mat[]){
     }
 }
 
-void f_transpose(struct elem mat[], struct elem trans[]){
+void f_transpose(matrix mat[], matrix trans[]){
     int i, j, k, temp;
     trans[0].col = mat[0].row;
     trans[0].row = mat[0].col;
@@ -68,7 +69,7 @@ void f_transpose(struct elem mat[], struct elem trans[]){
     }
 }
 
-void disp_matrix(struct elem mat[]){
+void disp_matrix(matrix mat[]){
     int i, j, k = 1;
     printf("\n");
     for(i=0; i<mat[0].row; i++){

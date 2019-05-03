@@ -443,6 +443,19 @@ node *reverse(node *start){
     return newStart;
 }
 //-------------------------------------------------------------
+void reverseByRec(node *temp, node **head){
+    node *next = NULL;
+    if (temp->ptr != NULL){
+        next = temp->ptr;
+        reverse(next, head);
+        next->ptr = temp;
+        temp->ptr = NULL;
+    }
+    else {
+        *head = temp; 
+    }
+}
+//-------------------------------------------------------------
 node *createReversed(node *start){
     node *newNode = NULL;
     node *previous = NULL;
