@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+//git changed
 
 typedef struct node{
 	int data;
