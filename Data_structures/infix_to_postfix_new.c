@@ -18,6 +18,7 @@ int main()
     fgets(str, MAX, stdin);
     //printf("%s", str);
     parseExpression(str);
+    printf("%s", str);
     printf("%d", -4);
 }
 //removes space from expression
