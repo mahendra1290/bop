@@ -254,7 +254,7 @@ void convertInfixToPostfix(char *infix, char *postfix){
             k++;
         }
         else{
-            if (infix[i+1] != '\0' && (infix[i+1] < 'a' || infix[i+1] > 'z') && (infix[i+1] != '(') && (infix[i+1] != ')')){
+            if (infix[i+1] != '\0' && (infix[i+1] < 'a' || infix[i+1] > 'z') && (infix[i] != '(') && (infix[i] != ')')){
                 str[0] = infix[i];
                 str[1] = infix[i+1];
                 str[2] = '\0';
